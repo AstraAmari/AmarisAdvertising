@@ -31,6 +31,13 @@ client.once("ready", async () => {
   console.log(`${client.user.tag} is online`);
   client.commands = new Collection();
   loadCommands(client);
+
+  setInterval(() => {
+    client.channels.cache
+      .get("1098624960085360760")
+      .send(`https://discord.gg/ep7x4CwhNW`);
+    console.log(`Auto advertisment sent`);
+  }, 3600000);
 });
 
 client.on("messageCreate", async (message) => {
@@ -55,8 +62,6 @@ client.on("messageCreate", async (message) => {
       }
     }
   }
-
-  //blacklisted words
 
   const blockedWords = [
     "kys",
@@ -143,6 +148,7 @@ client.on("messageCreate", async (message) => {
     "1098625099264954408",
     "1098624904133357658",
     "1098624942788063343",
+    "1098624948349702325",
   ];
 
   if (ignoredChannels.includes(message.channel.id)) return; // Ignore specified channels
@@ -151,7 +157,7 @@ client.on("messageCreate", async (message) => {
   const responseContent = new EmbedBuilder().setColor("Random").addFields({
     name: `Thank you for advertising in ${message.guild.name}`,
     value: [
-      `Follow the server rules, found in <#1110228068318060665>`,
+      `Follow the server rules, found in <#1098624735572656168>`,
       `Make sure your invite link is set to permanent.`,
       `If you leave, all your invites will be deleted`,
     ].join("\n"),
