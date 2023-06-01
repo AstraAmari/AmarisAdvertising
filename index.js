@@ -6,6 +6,7 @@ const {
     EmbedBuilder,
   } = require("discord.js"),
   fs = require("fs"),
+  cron = require("cron"),
   config = require("./data/config.json"),
   client = new Client({
     partials: [
@@ -32,12 +33,20 @@ client.once("ready", async () => {
   client.commands = new Collection();
   loadCommands(client);
 
-  setInterval(() => {
-    client.channels.cache
-      .get("1098624960085360760")
-      .send(`https://discord.gg/ep7x4CwhNW`);
-    console.log(`Auto advertisment sent`);
-  }, 3600000);
+  const cronJob = new cron.CronJob("0 */2 * * *", () => {
+    // Fetch the channel and send the advertisement
+    const channel = client.channels.cache.get("1100862659592720414");
+    channel.send(["https://discord.gg/ep7x4CwhNW"].join("\n"));
+
+    // Log the message
+    console.log("Auto advertisement sent");
+  });
+
+  // Execute the code immediately
+  //cronJob.fireOnTick();
+
+  // Start the cron job
+  cronJob.start();
 });
 
 client.on("messageCreate", async (message) => {
@@ -149,6 +158,7 @@ client.on("messageCreate", async (message) => {
     "1098624904133357658",
     "1098624942788063343",
     "1098624948349702325",
+    "1098625154055143584",
   ];
 
   if (ignoredChannels.includes(message.channel.id)) return; // Ignore specified channels
