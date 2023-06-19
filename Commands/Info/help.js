@@ -1,4 +1,5 @@
 const { EmbedBuilder } = require("discord.js");
+
 module.exports = {
   name: "help",
   description: "List the commands of the bot",
